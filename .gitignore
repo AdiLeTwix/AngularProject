@@ -1,0 +1,43 @@
+# compiled output
+/dist/
+/tmp/
+/out-tsc/
+
+# dependencies
+/node_modules
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.tpstate
+
+# IDE - VSCode
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# misc
+/.sass-cache/
+/connect.lock
+/coverage/
+/lib/
+/logs/
+/.npm
+/.pids
+/.travis.yml
+/typings/
+
+# e2e
+/e2e/tmp/
+/e2e/node_modules/
+
+# system
+.DS_Store
+Thumbs.db
+

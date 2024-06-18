@@ -1,0 +1,19 @@
+<div class="container">
+    <div id="header">
+        <div class="logo">
+            <img src="/weather-svgrepo-com.svg" alt="Weather Logo">
+        </div>
+        <h1>WEATHER APPLICATION</h1>
+    </div>
+    <div class="search-bar">
+        <app-search-input [(city)]="city" (cityChange)="onCountryChange($event)"></app-search-input>
+    </div>
+
+    <h2>{{ location }}</h2>
+    <div class="temperature">
+        <span>{{ temperature }}°</span>
+        <img src="/{{ weatherIcon }}" alt="Weather Icon">
+    </div>
+
+    <div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
+</div>
