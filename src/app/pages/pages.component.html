@@ -5,14 +5,103 @@
         </div>
         <h1>WEATHER APPLICATION</h1>
     </div>
-    <div class="search-bar">
-        <app-search-input [(city)]="city" (cityChange)="onCountryChange($event)"></app-search-input>
+
+    <div class="container-choices">
+        <div class="search-bar">
+            <app-search-input [(city)]="city" (cityChange)="onCountryChange($event)"></app-search-input>
+        </div>
+        <div class="select-form">
+            <select-form [selectedValue]="filter" (filterChange)="onFilterChange($event)"></select-form>
+        </div>
     </div>
 
-    <h2>{{ location }}</h2>
-    <div class="temperature">
-        <span>{{ temperature }}°</span>
-        <img src="/{{ weatherIcon }}" alt="Weather Icon">
+    <div class="center-container">
+        <div class="explanations-container">
+            <p>
+                The weather data includes the following parameters, and all measurements are based on the local time in France:
+            </p>
+            <ul>
+                <li><strong>temperature_2m</strong> -> Air temperature at 2 meters above ground</li>
+                <li><strong>relative_humidity_2m</strong> -> Relative humidity at 2 meters above ground</li>
+                <li><strong>precipitation_probability</strong> -> Probability of precipitation with more than 0.1 mm of the preceding hour</li>
+                <li><strong>precipitation</strong> -> Total precipitation of the preceding hour in millimeters</li>
+                <li><strong>snowfall</strong> -> Snowfall amount of the preceding hour in centimeters. For the water equivalent in millimeters, divide by 7. E.g., 7 cm snow = 10 mm precipitation water equivalent</li>
+                <li><strong>weather_code</strong> -> Weather condition as a numeric code. Follow WMO weather interpretation codes. See table below for details.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div>
+        <h3>{{ date }}</h3>
+        <h2>{{ location }}</h2>
+        <p *ngIf="errorMessage">{{ errorMessage }}</p>
+        <div *ngIf="weatherData">
+            <div class="temperature">
+                <span>{{ temperature }}°C</span>
+                <div class="icon-weather">
+                    <img src="/{{ weatherIcon }}" alt="Weather Icon">
+                </div>
+            </div>
+        </div>
+
+        <div class="info-weatherer-container">
+            <div class="info-weather">
+                <h3 id="description-weather">
+                    Weather description : {{ descriptionWeather }}
+                </h3>
+                <p id="mean-temperature">
+                    Temperature : {{ meanTemperature }}°C
+                </p>
+                <p id="mean-humidity">
+                    Humidity : {{ meanHumidity }}%
+                </p>
+                <p id="mean-rain">
+                    Rain : {{ meanRain }}mm
+                </p>
+                <p id="mean-precipitation-probavility">
+                    Precipitation probability : {{ meanPreciationProbability }}%
+                </p>
+                <p id="mean-cloud-cover">
+                    Cloud cover : {{ meanCloudCover }}%
+                </p>
+                <p id="mean-snowfall">
+                    Snowfall : {{ meanSnowfall }}cm
+                </p>
+                <p id="clarification-data">
+                    These values represent the daily average measurements, updated hourly.
+                </p>
+            </div>
+        </div>
+
+        <div *ngIf="filter === 'weekly'" class="weakly-container">
+            <div class="weekly-data">
+                <h3>Weekly Weather Forecast - The next 7 days from today</h3>
+                <div *ngFor="let day of weatherData?.dailyGrouped" class="weekly-day">
+                    <p id="date-weekly">{{ day.date.toLocaleDateString('en-US', { weekday: 'long' })}} - {{ day.date.toLocaleDateString('en-US')}}</p>
+                    <p>
+                        Temperature : {{ day.hourlyData.temperature2m }}°C
+                    </p>
+                    <p>
+                        Humidity : {{ day.hourlyData.relativeHumidity2m }}%
+                    </p>
+                    <p>
+                        Rain : {{ day.hourlyData.rain }}mm
+                    </p>
+                    <p>
+                        Precipitation probability : {{ day.hourlyData.precipitationProbability }}%
+                    </p>
+                    <p>
+                        Cloud cover : {{ day.hourlyData.cloudCover }}%
+                    </p>
+                    <p>
+                        Snowfall : {{ day.hourlyData.snowfall }}cm
+                    </p>
+                    <p id="clarification-data-weekly">
+                        These values represent the daily average measurements, updated hourly.
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>

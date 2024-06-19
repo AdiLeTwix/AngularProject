@@ -1,0 +1,9 @@
+<form>
+    <mat-form-field>
+        <mat-select placeholder="Select filter" [(value)]="selectedValue" (selectionChange)="onFilterChange($event.value)" [(ngModel)]="selectedValue" name="filter">
+            <mat-option *ngFor="let filter of filters" [value]="filter.value">
+                {{ filter.viewValue }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</form>
