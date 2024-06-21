@@ -125,9 +125,10 @@ export class WeatherComponent implements OnInit {
       currentTemperature: currentTemperature
     };
 
+    this.errorMessage = '';
     this.date = currDate.toString();
     this.meanHumidity = dataProcessed[0].hourlyData.precipitationProbability;
-    this.meanTemperature = dataProcessed[0].hourlyData.precipitationProbability;
+    this.meanTemperature = dataProcessed[0].hourlyData.temperature2m;
     this.meanRain = dataProcessed[0].hourlyData.rain;
     this.meanPreciationProbability = dataProcessed[0].hourlyData.precipitationProbability;
     this.meanCloudCover = dataProcessed[0].hourlyData.cloudCover;

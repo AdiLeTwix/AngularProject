@@ -34,7 +34,6 @@
     <div>
         <h3>{{ date }}</h3>
         <h2>{{ location }}</h2>
-        <p *ngIf="errorMessage">{{ errorMessage }}</p>
         <div *ngIf="weatherData">
             <div class="temperature">
                 <span>{{ temperature }}°C</span>
@@ -44,65 +43,71 @@
             </div>
         </div>
 
-        <div class="info-weatherer-container">
-            <div class="info-weather">
-                <h3 id="description-weather">
-                    Weather description : {{ descriptionWeather }}
-                </h3>
-                <p id="mean-temperature">
-                    Temperature : {{ meanTemperature }}°C
-                </p>
-                <p id="mean-humidity">
-                    Humidity : {{ meanHumidity }}%
-                </p>
-                <p id="mean-rain">
-                    Rain : {{ meanRain }}mm
-                </p>
-                <p id="mean-precipitation-probavility">
-                    Precipitation probability : {{ meanPreciationProbability }}%
-                </p>
-                <p id="mean-cloud-cover">
-                    Cloud cover : {{ meanCloudCover }}%
-                </p>
-                <p id="mean-snowfall">
-                    Snowfall : {{ meanSnowfall }}cm
-                </p>
-                <p id="clarification-data">
-                    These values represent the daily average measurements, updated hourly.
-                </p>
-            </div>
-        </div>
-
-        <div *ngIf="filter === 'weekly'" class="weakly-container">
-            <div class="weekly-data">
-                <h3>Weekly Weather Forecast - The next 7 days from today</h3>
-                <div *ngFor="let day of weatherData?.dailyGrouped" class="weekly-day">
-                    <p id="date-weekly">{{ day.date.toLocaleDateString('en-US', { weekday: 'long' })}} - {{ day.date.toLocaleDateString('en-US')}}</p>
-                    <p>
-                        Temperature : {{ day.hourlyData.temperature2m }}°C
+        <div *ngIf="errorMessage.length === 0; else other_content">
+            <div class="info-weatherer-container">
+                <div class="info-weather">
+                    <h3 id="description-weather">
+                        Weather description : {{ descriptionWeather }}
+                    </h3>
+                    <p id="mean-temperature">
+                        Temperature : {{ meanTemperature }}°C
                     </p>
-                    <p>
-                        Humidity : {{ day.hourlyData.relativeHumidity2m }}%
+                    <p id="mean-humidity">
+                        Humidity : {{ meanHumidity }}%
                     </p>
-                    <p>
-                        Rain : {{ day.hourlyData.rain }}mm
+                    <p id="mean-rain">
+                        Rain : {{ meanRain }}mm
                     </p>
-                    <p>
-                        Precipitation probability : {{ day.hourlyData.precipitationProbability }}%
+                    <p id="mean-precipitation-probavility">
+                        Precipitation probability : {{ meanPreciationProbability }}%
                     </p>
-                    <p>
-                        Cloud cover : {{ day.hourlyData.cloudCover }}%
+                    <p id="mean-cloud-cover">
+                        Cloud cover : {{ meanCloudCover }}%
                     </p>
-                    <p>
-                        Snowfall : {{ day.hourlyData.snowfall }}cm
+                    <p id="mean-snowfall">
+                        Snowfall : {{ meanSnowfall }}cm
                     </p>
-                    <p id="clarification-data-weekly">
+                    <p id="clarification-data">
                         These values represent the daily average measurements, updated hourly.
                     </p>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
+            <div *ngIf="filter === 'weekly'" class="weakly-container">
+                <div class="weekly-data">
+                    <h3>Weekly Weather Forecast - The next 7 days from today</h3>
+                    <div *ngFor="let day of weatherData?.dailyGrouped" class="weekly-day">
+                        <p id="date-weekly">{{ day.date.toLocaleDateString('en-US', { weekday: 'long' })}} - {{ day.date.toLocaleDateString('en-US')}}</p>
+                        <p>
+                            Temperature : {{ day.hourlyData.temperature2m }}°C
+                        </p>
+                        <p>
+                            Humidity : {{ day.hourlyData.relativeHumidity2m }}%
+                        </p>
+                        <p>
+                            Rain : {{ day.hourlyData.rain }}mm
+                        </p>
+                        <p>
+                            Precipitation probability : {{ day.hourlyData.precipitationProbability }}%
+                        </p>
+                        <p>
+                            Cloud cover : {{ day.hourlyData.cloudCover }}%
+                        </p>
+                        <p>
+                            Snowfall : {{ day.hourlyData.snowfall }}cm
+                        </p>
+                        <p id="clarification-data-weekly">
+                            These values represent the daily average measurements, updated hourly.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ng-template #other_content>
+            <div class="error-message">
+                {{ errorMessage }}
+            </div>
+        </ng-template>
+    </div>
 </div>

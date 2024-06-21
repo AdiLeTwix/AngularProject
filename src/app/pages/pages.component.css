@@ -204,7 +204,9 @@ h3  {
 }
 
 .error-message {
+    font-size: 5rem;
     color: red;
+    padding: 10px;
 }
 
 #date-weekly {
